@@ -8,15 +8,14 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 
 import static com.google.common.reflect.ClassPath.from;
-import static dev.Byrdman32.annotation.ExecutedDays.Day.DAY_01;
-import static dev.Byrdman32.annotation.ExecutedDays.Day.getDayRepresentation;
+import static dev.Byrdman32.annotation.ExecutedDays.Day.*;
 import static dev.Byrdman32.util.meta.CommandLineTools.Part.FIRST;
 import static dev.Byrdman32.util.meta.CommandLineTools.Part.SECOND;
 import static dev.Byrdman32.util.meta.CommandLineTools.log;
 import static dev.Byrdman32.util.meta.File.read;
 import static java.lang.Thread.currentThread;
 
-@ExecutedDays(day = DAY_01)
+@ExecutedDays(day = ALL_DAYS)
 public class Calendar {
     private static final String CURRENT_YEAR = "2015";
 
