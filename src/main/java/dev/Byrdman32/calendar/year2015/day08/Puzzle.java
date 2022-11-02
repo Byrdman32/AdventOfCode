@@ -29,6 +29,23 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int total = 0;
+        int total2 = 0;
+
+        for (String s : input) {
+            total += s.length();
+
+            total2 += 2;
+
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == '\\' || s.charAt(i) == '"') {
+                    total2++;
+                }
+
+                total2++;
+            }
+        }
+
+        return total2 - total;
     }
 }
