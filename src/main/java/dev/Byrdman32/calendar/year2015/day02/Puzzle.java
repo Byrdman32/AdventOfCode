@@ -1,5 +1,6 @@
 package dev.Byrdman32.calendar.year2015.day02;
 
+import java.util.Arrays;
 import java.util.List;
 import dev.Byrdman32.interfaces.GenericPuzzle;
 
@@ -23,6 +24,20 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int total = 0;
+
+        for (String s : input) {
+            int[] i = new int[3];
+
+            for (int j = 0; j < 3; j++) {
+                i[j] = Integer.parseInt(s.split("x")[j]);
+            }
+
+            Arrays.sort(i);
+
+            total += (i[0] * i[1] * i[2]) + (2 * i[0]) + (2 * i[1]);
+        }
+
+        return total;
     }
 }
