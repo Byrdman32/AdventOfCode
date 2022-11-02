@@ -40,6 +40,6 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        return parallelFirstWithStart("000000", input.get(0));
     }
 }
