@@ -23,6 +23,16 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int count = 0;
+
+        for (String s : input) {
+            if (
+                s.matches(".*(.).\\1.*") && s.matches(".*(..).*\\1.*")
+            ) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }
