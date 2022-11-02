@@ -84,6 +84,13 @@ public class Puzzle implements GenericPuzzle  {
         Map<String, Integer> wireMapping = new HashMap<>();
         // pattern to match left hand arguments
         Pattern p = Pattern.compile("[a-z]+|\\d+");
+        return getObject(p, input, wireMapping);
+    }
+
+    public Object solvePart2(List<String> input) {
+        Map<String, Integer> wireMapping = new HashMap<>();
+        // pattern to match left hand arguments
+        Pattern p = Pattern.compile("[a-z]+|\\d+");
         for (String instr : input) {
             String targetWire = instr.substring(instr.indexOf('>') + 2);
 
@@ -92,11 +99,26 @@ public class Puzzle implements GenericPuzzle  {
             }
         }
 
-        return wireMapping.get("a");
+        List<String> instructionsPt2 = new ArrayList<>(input);
+        int indexWB = indexOfWireB(instructionsPt2);
+        int aPt1 = wireMapping.get("a");
+
+        instructionsPt2.set(indexWB,
+                aPt1 + " -> " + input.get(indexWB).substring(input.get(indexWB).indexOf('>') + 2));
+
+        Map<String, Integer> wireMapping2 = new HashMap<>();
+        return getObject(p, instructionsPt2, wireMapping2);
     }
 
-    public Object solvePart2(List<String> input) {
+    private Object getObject(Pattern p, List<String> instructionsPt2, Map<String, Integer> wireMapping2) {
+        for (String instr : instructionsPt2) {
+            String targetWire = instr.substring(instr.indexOf('>') + 2);
 
-        return null;
+            if (!wireMapping2.containsKey(targetWire)) {
+                calculateSignal(targetWire, instr.substring(0, instr.indexOf('-') - 1), instructionsPt2, wireMapping2, p);
+            }
+        }
+
+        return wireMapping2.get("a");
     }
 }
