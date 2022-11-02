@@ -125,3 +125,4 @@ replay_pid*
 .DS_Store
 
 src/main/resources/secret.yml
+target/classes/secret.yml
