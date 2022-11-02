@@ -1,5 +1,6 @@
-import java.util.List;
+package dev.Byrdman32.calendar.year{}.day{};
 
+import java.util.List;
 import dev.Byrdman32.interfaces.GenericPuzzle;
 
 public class Puzzle implements GenericPuzzle  {
