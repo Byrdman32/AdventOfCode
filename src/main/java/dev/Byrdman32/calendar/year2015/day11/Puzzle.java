@@ -57,6 +57,12 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        char[] password = String.valueOf(solvePart1(input)).toCharArray();
+
+        do {
+            increasePassword(password, password.length - 1);
+        } while (!isPasswordCorrect(password));
+
+        return String.valueOf(password);
     }
 }
