@@ -43,6 +43,6 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        return process(input.get(0), 50);
     }
 }
