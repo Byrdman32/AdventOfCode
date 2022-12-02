@@ -3,6 +3,7 @@ package dev.Byrdman32.calendar.year2022.day02;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import dev.Byrdman32.interfaces.GenericPuzzle;
 
@@ -81,6 +82,70 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int total = 0;
+        Map<String, Integer> pointValues = new HashMap<>();
+
+        pointValues.put("Rock", 1);
+        pointValues.put("Paper", 2);
+        pointValues.put("Scissors", 3);
+        pointValues.put("Lost", 0);
+        pointValues.put("Tie", 3);
+        pointValues.put("Won", 6);
+
+        for (String line : input) {
+            String[] split = line.split(" ");
+            String player1 = split[0];
+            String ruling = split[1];
+            Character player2 = ' ';
+
+            if (ruling.charAt(0) == 'X') {
+                // Lose
+                if (Objects.equals(player1, "A")) {
+                    player2 = 'Z';
+                } else if (Objects.equals(player1, "B")) {
+                    player2 = 'X';
+                } else if (Objects.equals(player1, "C")) {
+                    player2 = 'Y';
+                }
+            } else if (ruling.charAt(0) == 'Y') {
+                // Draw
+                if (Objects.equals(player1, "A")) {
+                    player2 = 'X';
+                } else if (Objects.equals(player1, "B")) {
+                    player2 = 'Y';
+                } else if (Objects.equals(player1, "C")) {
+                    player2 = 'Z';
+                }
+            } else if (ruling.charAt(0) == 'Z') {
+                // Win
+                if (Objects.equals(player1, "A")) {
+                    player2 = 'Y';
+                } else if (Objects.equals(player1, "B")) {
+                    player2 = 'Z';
+                } else if (Objects.equals(player1, "C")) {
+                    player2 = 'X';
+                }
+            }
+
+            int result = rockPaperScissors(player1.charAt(0), player2);
+
+            if (result == 0) {
+                total += pointValues.get("Tie");
+            } else if (result == 1) {
+                total += pointValues.get("Lost");
+            } else {
+                total += pointValues.get("Won");
+            }
+
+            if (player2 == 'X') {
+                total += pointValues.get("Rock");
+            } else if (player2 == 'Y') {
+                total += pointValues.get("Paper");
+            } else if (player2 == 'Z') {
+                total += pointValues.get("Scissors");
+            }
+        }
+
+        return total;
     }
 }
