@@ -104,6 +104,38 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int total = 0;
+
+        for (int i = 0; i < input.size(); i+=3) {
+            char[] one = input.get(i).toCharArray();
+            char[] two = input.get(i+1).toCharArray();
+            char[] three = input.get(i+2).toCharArray();
+
+            HashMap<Character,Integer> hMap = new HashMap<>();
+            HashMap<Character,Integer> hMap2 = new HashMap<>();
+            HashMap<Character,Integer> hMap3 = new HashMap<>();
+
+            for (char c : one) {
+                if (!hMap.containsKey(c)) {
+                    hMap.put(c, 1);
+                }
+            }
+            for (char c : two) {
+                if (hMap.containsKey(c)) {
+                    hMap2.put(c, 1);
+                }
+            }
+            for (char c : three) {
+                if (hMap2.containsKey(c)) {
+                    hMap3.put(c, 1);
+                }
+            }
+
+            for (Map.Entry<Character, Integer> entry : hMap3.entrySet()) {
+                total += pointValue(entry.getKey());
+            }
+        }
+
+        return total;
     }
 }
