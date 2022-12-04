@@ -15,9 +15,9 @@ import static dev.Byrdman32.util.meta.CommandLineTools.log;
 import static dev.Byrdman32.util.meta.File.read;
 import static java.lang.Thread.currentThread;
 
-@ExecutedDays(day = DAY_03)
+@ExecutedDays(day = DAY_14)
 public class Calendar {
-    private static final String CURRENT_YEAR = "2022";
+    private static final String CURRENT_YEAR = "2015";
 
     @SuppressWarnings({"UnstableApiUsage", "unchecked"})
     @SneakyThrows(value = IOException.class)
