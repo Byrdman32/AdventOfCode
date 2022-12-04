@@ -63,6 +63,16 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        min = 2000;
+        level2 = true;
+
+        String[] boss = input.get(0).split(": ");
+        int bossHit = Integer.parseInt(boss[1]);
+        boss = input.get(1).split(": ");
+        int bossDamage = Integer.parseInt(boss[1]);
+
+        player(bossHit, bossDamage, 50, 500, 0, 0, 0, 0);
+
+        return min;
     }
 }
