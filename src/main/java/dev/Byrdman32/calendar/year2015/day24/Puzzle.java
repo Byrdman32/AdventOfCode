@@ -49,6 +49,7 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int[] sizes = input.stream().mapToInt(Integer::parseInt).toArray();
+        return divide(sizes, 4);
     }
 }
