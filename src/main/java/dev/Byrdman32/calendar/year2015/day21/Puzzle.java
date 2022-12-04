@@ -81,6 +81,6 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        return calculateCost(input)[1];
     }
 }
