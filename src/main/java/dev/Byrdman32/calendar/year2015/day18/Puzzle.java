@@ -16,17 +16,33 @@ public class Puzzle implements GenericPuzzle {
                 int neighbours = countNeighbours(grid, x, y);
 
                 if (grid[x][y]) {
-                    if (neighbours == 2 || neighbours == 3) {
-                        newGrid[x][y] = true;
-                    } else {
-                        newGrid[x][y] = false;
-                    }
+                    newGrid[x][y] = neighbours == 2 || neighbours == 3;
                 } else {
-                    if (neighbours == 3) {
-                        newGrid[x][y] = true;
-                    } else {
-                        newGrid[x][y] = false;
-                    }
+                    newGrid[x][y] = neighbours == 3;
+                }
+            }
+        }
+
+        return newGrid;
+    }
+
+    private static boolean[][] animate2(boolean[][] grid) {
+        boolean[][] newGrid = new boolean[100][100];
+
+        for (int x = 0; x < 100; x++) {
+            for (int y = 0; y < 100; y++) {
+
+                if (x == 0 && y == 0 || x == 0 && y == 99 || x == 99 && y == 0 || x == 99 && y == 99) {
+                    newGrid[x][y] = true;
+                    continue;
+                }
+
+                int neighbours = countNeighbours(grid, x, y);
+
+                if (grid[x][y]) {
+                    newGrid[x][y] = neighbours == 2 || neighbours == 3;
+                } else {
+                    newGrid[x][y] = neighbours == 3;
                 }
             }
         }
@@ -118,6 +134,26 @@ public class Puzzle implements GenericPuzzle {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        boolean[][] grid = new boolean[100][100];
+
+        for (int y = 0; y < input.size(); y++) {
+            String line = input.get(y);
+            for (int x = 0; x < line.length(); x++) {
+                if (line.charAt(x) == '#') {
+                    grid[x][y] = true;
+                }
+            }
+        }
+
+        grid[0][0] = true;
+        grid[99][0] = true;
+        grid[99][99] = true;
+        grid[0][99] = true;
+
+        for (int f = 0; f < 100; f++) {
+            grid = animate2(grid);
+        }
+
+        return countLights(grid);
     }
 }
