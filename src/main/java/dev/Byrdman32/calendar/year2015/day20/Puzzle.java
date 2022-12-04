@@ -19,6 +19,23 @@ public class Puzzle implements GenericPuzzle  {
         return total;
     }
 
+    private static Integer sumFactors2(Integer houseNumber){
+        Integer total = 0;
+
+        for(int elf = 1; elf <= houseNumber; elf++){
+            if(houseNumber % elf == 0){
+                if(50*elf < houseNumber)
+                    continue;
+
+                total += elf;
+                if(Math.pow(elf, 2) != houseNumber)
+                    total += houseNumber/elf;
+            }
+        }
+
+        return total;
+    }
+
     public Object solvePart1(List<String> input) {
 
         int i = 1;
@@ -31,6 +48,11 @@ public class Puzzle implements GenericPuzzle  {
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        int i = (int) solvePart1(input);
+        while(sumFactors2(i) < Integer.parseInt(input.get(0))/11){
+            i++;
+        }
+
+        return i;
     }
 }
