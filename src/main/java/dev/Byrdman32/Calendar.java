@@ -15,7 +15,7 @@ import static dev.Byrdman32.util.meta.CommandLineTools.log;
 import static dev.Byrdman32.util.meta.File.read;
 import static java.lang.Thread.currentThread;
 
-@ExecutedDays(day = DAY_19)
+@ExecutedDays(day = DAY_20)
 public class Calendar {
     private static final String CURRENT_YEAR = "2015";
 
