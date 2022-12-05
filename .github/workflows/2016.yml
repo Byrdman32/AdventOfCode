@@ -1,0 +1,24 @@
+name: Advent of Code 2016 ⭐
+on:
+  schedule:
+    - cron: "20 0 * * *" # Every day at midnight
+    - cron: "20 6 * * *" # Every day at six
+    - cron: "20 12 * * *" # Every day at noon
+    - cron: "20 18 * * *" # Every day at eighteen
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: k2bd/advent-readme-stars@v1
+        with:
+          userId: ${{ secrets.USER_ID }}
+          leaderboardId: ${{ secrets.LEADERBOARD_ID }}
+          sessionCookie: ${{ secrets.AOC_SESSION }}
+          tableMarker: "<!--- advent_readme_stars table 2016--->"
+          year: 2016
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update README stars

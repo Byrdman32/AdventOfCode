@@ -1,0 +1,24 @@
+name: Advent of Code 2021 ⭐
+on:
+  schedule:
+    - cron: "0 2 * * *" # Every day at two
+    - cron: "0 8 * * *" # Every day at eight
+    - cron: "0 14 * * *" # Every day at fourteen
+    - cron: "0 20 * * *" # Every day at twenty
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: k2bd/advent-readme-stars@v1
+        with:
+          userId: ${{ secrets.USER_ID }}
+          leaderboardId: ${{ secrets.LEADERBOARD_ID }}
+          sessionCookie: ${{ secrets.AOC_SESSION }}
+          tableMarker: "<!--- advent_readme_stars table 2021--->"
+          year: 2021
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update README stars
