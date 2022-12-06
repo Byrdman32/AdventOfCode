@@ -5,14 +5,18 @@ import java.util.List;
 import dev.Byrdman32.interfaces.GenericPuzzle;
 
 public class Puzzle implements GenericPuzzle  {
-    public Object solvePart1(List<String> input) {
 
-        String group;
+    private int findUnique(String input, int groupSize) {
+        StringBuilder group;
         boolean unique;
 
-        for (int i = 0; i < input.get(0).length() - 3; i++) {
+        for (int i = 0; i < input.length() - groupSize - 1; i++) {
             unique = true;
-            group = "" + input.get(0).charAt(i) + input.get(0).charAt(i + 1) + input.get(0).charAt(i + 2) + input.get(0).charAt(i + 3);
+
+            group = new StringBuilder();
+            for (int j = 0; j < groupSize; j++) {
+                group.append(input.charAt(i + j));
+            }
 
             for (int j = 0; j < group.length(); j++) {
                 for (int k = j + 1; k < group.length(); k++) {
@@ -24,50 +28,19 @@ public class Puzzle implements GenericPuzzle  {
             }
 
             if (unique) {
-                return i + 4;
+                return i + groupSize;
             }
         }
 
-        return null;
+        return -1;
+    }
+    public Object solvePart1(List<String> input) {
+
+        return findUnique(input.get(0), 4);
     }
 
     public Object solvePart2(List<String> input) {
 
-        String group;
-        boolean unique;
-
-        for (int i = 0; i < input.get(0).length() - 13; i++) {
-            unique = true;
-            group = "" +
-                    input.get(0).charAt(i) +
-                    input.get(0).charAt(i + 1) +
-                    input.get(0).charAt(i + 2) +
-                    input.get(0).charAt(i + 3) +
-                    input.get(0).charAt(i + 4) +
-                    input.get(0).charAt(i + 5) +
-                    input.get(0).charAt(i + 6) +
-                    input.get(0).charAt(i + 7) +
-                    input.get(0).charAt(i + 8) +
-                    input.get(0).charAt(i + 9) +
-                    input.get(0).charAt(i + 10) +
-                    input.get(0).charAt(i + 11) +
-                    input.get(0).charAt(i + 12) +
-                    input.get(0).charAt(i + 13);
-
-            for (int j = 0; j < group.length(); j++) {
-                for (int k = j + 1; k < group.length(); k++) {
-                    if (group.charAt(j) == group.charAt(k)) {
-                        unique = false;
-                        break;
-                    }
-                }
-            }
-
-            if (unique) {
-                return i + 14;
-            }
-        }
-
-        return null;
+        return findUnique(input.get(0), 14);
     }
 }
