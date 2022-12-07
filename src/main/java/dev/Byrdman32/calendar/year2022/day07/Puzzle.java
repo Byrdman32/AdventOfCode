@@ -31,7 +31,7 @@ public class Puzzle implements GenericPuzzle  {
 
     private static List<File> collectDirs(File element) {
         List<File> result = new ArrayList<>();
-        for (var e : element.subElements) {
+        for (File e : element.subElements) {
             if (!e.file) {
                 result.add(e);
                 result.addAll(collectDirs(e));
@@ -41,7 +41,8 @@ public class Puzzle implements GenericPuzzle  {
     }
 
     public Object solvePart1(List<String> input) {
-        var root = new File(0, "/", false, null);
+        File root = new File(0, "/", false, null);
+        int MAX_DIR = 100000;
 
         File current = root;
         for (int index = 1; index < input.size(); ++index) {
@@ -63,13 +64,41 @@ public class Puzzle implements GenericPuzzle  {
             }
         }
         updateDirectoryCount(root);
-        var dirs = collectDirs(root);
+        List<File> dirs = collectDirs(root);
 
-        return dirs.stream().filter(d -> d.size < 100000).mapToInt(d -> d.size).sum();
+        return dirs.stream().filter(d -> d.size < MAX_DIR).mapToInt(d -> d.size).sum();
     }
 
     public Object solvePart2(List<String> input) {
+        File root = new File(0, "/", false, null);
+        int HDD_SPACE = 70000000;
+        int UPDATE_SPACE = 30000000;
 
-        return null;
+        File current = root;
+        for (int index = 1; index < input.size(); ++index) {
+            if (input.get(index).startsWith("$ cd")) {
+                String dirName = input.get(index).substring("$ cd ".length());
+                if (dirName.equals("..")) {
+                    current = current.parent;
+                } else {
+                    current = current.subElements.stream().filter(fse -> fse.name.equals(dirName)).findAny().orElseThrow();
+                }
+            } else if (input.get(index).startsWith("dir ")) {
+                String dirName = input.get(index).substring("dir ".length());
+                current.subElements.add(new File(0, dirName, false, current));
+            } else if (!input.get(index).equals("$ ls")) {
+                String[] parts = input.get(index).split(" ");
+                int size = Integer.parseInt(parts[0]);
+                String name = parts[1];
+                current.subElements.add(new File(size, name, true, current));
+            }
+        }
+        updateDirectoryCount(root);
+        List<File> dirs = collectDirs(root);
+
+
+        int availableSpace = HDD_SPACE - root.size;
+        int needed = UPDATE_SPACE - availableSpace;
+        return dirs.stream().filter(d -> d.size >= needed).min(Comparator.comparingInt(a -> a.size)).orElseThrow().size;
     }
 }
