@@ -12,14 +12,18 @@ public class Puzzle implements GenericPuzzle  {
 
         var monkeys = initializeMonkeys(in2);
 
-        executeRounds(monkeys, 20);
+        executeRounds(monkeys, 20, true);
 
         return getLevelOfMonkeyBusiness(monkeys);
     }
 
     public Object solvePart2(List<String> input) {
 
-        return null;
+        var monkeys = initializeMonkeys(in2);
+
+        executeRounds(monkeys, 10_000, false);
+
+        return getLevelOfMonkeyBusiness(monkeys);
     }
 
     private Monkey[] initializeMonkeys(String input) {
@@ -40,7 +44,7 @@ public class Puzzle implements GenericPuzzle  {
         return monkeys;
     }
 
-    private void executeRounds(Monkey[] monkeys, int rounds) {
+    private void executeRounds(Monkey[] monkeys, int rounds, boolean reliefWorryLevel) {
         var prod = 1;
 
         for (var monkey: monkeys) {
@@ -61,7 +65,9 @@ public class Puzzle implements GenericPuzzle  {
                         case '*' -> item = item * operationParameter;
                     }
 
-                    item /= 3;
+                    if (reliefWorryLevel) {
+                        item /= 3;
+                    }
 
                     var target = item % monkey.divisible == 0 ? monkey.trueTarget : monkey.falseTarget;
                     monkeys[target].items.add(item % prod);
